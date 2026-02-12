@@ -17,7 +17,7 @@ jobs:
       - name: Deploiement sur le serveur nginx
         run: |
           sudo cp index.html /var/www/html/index.html
-          sudo systemctl reload nginx
+          sudo nginx -s reload
 
       - name: Verification du deploiement
         run: curl -s http://localhost | head -5
