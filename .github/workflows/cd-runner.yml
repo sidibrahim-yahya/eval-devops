@@ -1,0 +1,23 @@
+name: CD - Self-Hosted Runner
+
+on:
+  workflow_run:
+    workflows: ["CI - Tests HTML"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy-server:
+    runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Deploiement sur le serveur nginx
+        run: |
+          sudo cp index.html /var/www/html/index.html
+          sudo systemctl reload nginx
+
+      - name: Verification du deploiement
+        run: curl -s http://localhost | head -5

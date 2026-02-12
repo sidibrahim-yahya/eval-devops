@@ -1,0 +1,25 @@
+name: CI - Tests HTML
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installation de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installation de html-validate
+        run: npm install html-validate html-validate-cli
+
+      - name: Validation du HTML
+        run: npx html-validate index.html
