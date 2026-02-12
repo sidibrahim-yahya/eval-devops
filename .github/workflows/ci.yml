@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Installation de html-validate
-        run: npm install html-validate html-validate-cli
+        run: npm install html-validate
 
       - name: Validation du HTML
         run: npx html-validate index.html
